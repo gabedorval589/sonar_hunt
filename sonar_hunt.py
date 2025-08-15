@@ -17,6 +17,40 @@ def get_new_board():
                 board[x].append('`')
     return board
 
+
+    
+def draw_board(board):
+    """Draw the board data structure."""
+    tensDigitsLine = '    ' # Initial space for the numbers down the left side of the board
+    for i in range(1, 6):
+        tensDigitsLine += (' ' * 9) + str(i)
+
+    # Print the numbers across the top of the board.
+    print(tensDigitsLine)
+    print('   ' + ('0123456789' * 6))
+    print()
+
+    # Print each of the 15 rows.
+    for row in range(15):
+        # Single-digit numbers need to be padded with an extra space.
+        if row < 10:
+            extraSpace = ' '
+        else:
+            extraSpace = ''
+
+        # Create the string for this row on the board.
+        boardRow = ''
+        for column in range(60):
+            boardRow += board[column][row]
+
+        print('%s%s %s %s' % (extraSpace, row, boardRow, row))
+
+    # Print the numbers across the bottom of the board.
+    print()
+    print('   ' + ('0123456789' * 6))
+    print(tensDigitsLine)
+
+    
 def get_random_chests(num_chests):
     """ Create a list of chest data structures (two-item lists of x, y int coordinates)."""
     chests = []
