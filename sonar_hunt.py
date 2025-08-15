@@ -16,3 +16,12 @@ def get_new_board():
             else:
                 board[x].append('`')
     return board
+
+def get_random_chests(num_chests):
+    """ Create a list of chest data structures (two-item lists of x, y int coordinates)."""
+    chests = []
+    while len(chests) < num_chests:
+        new_chest = [random.randint(0, 59), random.randint(0, 14)]
+        if new_chest not in chests: # Make sure a chest is not already here.
+            chests.append(new_chest)
+    return chests
