@@ -59,3 +59,32 @@ def get_random_chests(num_chests):
         if new_chest not in chests: # Make sure a chest is not already here.
             chests.append(new_chest)
     return chests
+
+def is_on_board(x, y):
+    """Return True if the coordinates are on the board; otherwise, return False."""
+    return x >= 0 and x <= 59 and y >= 0 and y <= 14
+
+def make_move(board, chests, x, y):
+    """ Change the board data structure with a sonar device character. Remove treasure chests from the chests list as they are found.
+    Return False if this is an invalid move.
+    Otherwise, return the string of the result of this move."""
+    smallest_distance = 100 # Any chest will be closer than 100.
+    for cx, cy in chests:
+        distance = math.sqrt((cx - x) * (cx - x) + (cy - y) * (cy - y))
+
+        if distance < smallest_distance: # We want the closest treasure chest.
+            smallest_distance = distance
+
+    smallest_distance = round(smallest_distance)
+
+    if smallest_distance == 0:
+        # xy is directly on a treasure chest!
+        chests.remove([x, y])
+        return 'You have found a sunken treasure chest!'
+    else:
+        if smallest_distance < 10:
+            board[x][y] = str(smallest_distance)
+            return 'Treasure detected at a distance of %s from the sonar device.' % (smallest_distance)
+        else:
+            board[x][y] = 'X'
+            return 'Sonar did not detect anything. All treasure chests out of range.'
